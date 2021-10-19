@@ -1,0 +1,4 @@
+function [a] = arial
+% [a] = arial - Reads the arial image of Lincoln
+
+grat_image = rgb2gray ( "SampleImages/lincoln.jpg");
