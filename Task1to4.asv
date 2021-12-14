@@ -2,33 +2,32 @@ clear; close all;
 
 % Task 1: Pre-processing -----------------------
 % Step-1: Load input image
-I = imread('IMG_03.png');
+I = imread('IMG_01.png');
 imshow(I);
 
 % Step-2: Covert image to grayscale
 I = rgb2gray(I);
-%imshow(I);
+imshow(I);
 
 % Step-3: Rescale image
 I = imresize(I, [512, NaN]);
-%imshow(I);
+imshow(I);
 
 % Step-4: Produce histogram before enhancing
-%imhist(I);
+imhist(I, 10);
 
 % Step-5: Enhance image before binarisation
 %I_histeq = histeq(I);
-I_con = medfilt2(I, [5,5]);
-%imshowpair(I, I_con, 'montage');
+I = contrast(I);
+%imshowpair(I, I_histeq, 'montage');
 
 % Step-6: Histogram after enhancement
 %imhist(I_histeq, 10);
 
 % Step-7: Image Binarisation
-T = adaptthresh(I_con, 0.01);
-I = imbinarize(I);
-I_con = imbinarize(I_con, T);
-imshowpair(I, I_con, 'montage');
+%level = graythresh(I_histeq);
+%level = level * 256;
+%I_bin = imbinarize(rgb2gray(I_histeq));
 %imshow(I_bin);
 
 
