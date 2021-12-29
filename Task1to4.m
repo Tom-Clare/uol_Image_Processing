@@ -14,7 +14,7 @@ I = imresize(I, [512, NaN]);
 %imshow(I);
 
 % Step-4: Produce histogram before enhancing
-%imhist(I);
+imhist(I);
 
 % Step-5: Enhance image before binarisation
 %I_histeq = histeq(I);
@@ -25,11 +25,14 @@ I_con = medfilt2(I, [5,5]);
 %imhist(I_histeq, 10);
 
 % Step-7: Image Binarisation
+G = graythresh(I);
+Im = imbinarize(I, G);
+
 T = adaptthresh(I_con, 0.01);
 I = imbinarize(I);
 I_con = imbinarize(I_con, T);
-imshowpair(I, I_con, 'montage');
-%imshow(I_bin);
+imshowpair(I, Im, 'montage');
+%imshow(I);
 
 
 % Task 2: Edge detection ------------------------
