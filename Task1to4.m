@@ -26,12 +26,13 @@ I_con = medfilt2(I, [5,5]);
 
 % Step-7: Image Binarisation
 G = graythresh(I);
-Im = imbinarize(I, G);
+Im = im2bw(I, G);
+Im = imbinarize(I);
 
-T = adaptthresh(I_con, 0.01);
+T = adaptthresh(I_con, 0.1);
 I = imbinarize(I);
 I_con = imbinarize(I_con, T);
-imshowpair(I, Im, 'montage');
+imshowpair(I_con, Im, 'montage');
 %imshow(I);
 
 
