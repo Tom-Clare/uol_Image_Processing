@@ -2,7 +2,7 @@ clear; close all;
 
 % Task 1: Pre-processing -----------------------
 % Step-1: Load input image
-I = imread('IMG_03.png');
+I = imread('IMG_04.png');
 imshow(I);
 
 % Step-2: Covert image to grayscale
@@ -18,23 +18,27 @@ imhist(I);
 
 % Step-5: Enhance image before binarisation
 %I_histeq = histeq(I);
-I_con = medfilt2(I, [5,5]);
-%imshowpair(I, I_con, 'montage');
+I_filt = medfilt2(I, [5,5]);
+%imshow(I);
+
 
 % Step-6: Histogram after enhancement
 %imhist(I_histeq, 10);
 
 % Step-7: Image Binarisation
+% Use Otsu's method
 G = graythresh(I);
-Im = im2bw(I, G);
-Im = imbinarize(I);
+I = imbinarize(I, G);
 
-T = adaptthresh(I_con, 0.1);
-I = imbinarize(I);
-I_con = imbinarize(I_con, T);
-imshowpair(I_con, Im, 'montage');
-%imshow(I);
+G = graythresh(I_filt);
+I_filt = imbinarize(I_filt, G);
 
+
+% extra step to open and erode to further reduce noise
+I = bwareaopen(I, 400, 4);
+I_filt = bwareaopen(I_filt, 400, 4);
+
+imshowpair(I, I_filt, 'montage');
 
 % Task 2: Edge detection ------------------------
 
