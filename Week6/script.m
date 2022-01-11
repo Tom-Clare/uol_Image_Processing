@@ -1,0 +1,13 @@
+inputimage = imread('SampleImages/Face.jpg');
+A = rgb2gray(inputimage);
+figure;
+subplot(2,2,1);
+imshow(A);
+h3 = fspecial('average', 3);
+B = imfilter(A, h3);
+subplot(2,2,2);
+imshow(B);
+h7 = fspecial('average', 7);
+C = imfilter(A, h7);
+subplot(2,2,3);
+imshow(C);
