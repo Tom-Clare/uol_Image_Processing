@@ -37,14 +37,13 @@ I = medfilt2(I, [12,12]);
 I = imadjust(I, [], [], 3);
 imshow(I);
 
-I = edge(I, 'canny');
+I = edge(I, 'log');
 
-%imshow(I);
+imshow(I);
 
 %% Task 3: Simple segmentation --------------------
 mask = zeros(size(I));
 mask(25:end-25,25:end-25) = 1;
-I = activecontour(I, mask, 100);
-imshow(I);
+I = activecontour(I, mask, 500);
 
 % Task 4: Object Recognition --------------------
