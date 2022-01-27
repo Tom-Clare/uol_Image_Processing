@@ -2,8 +2,8 @@ clear; close all;
 
 % Task 1: Pre-processing -----------------------
 % Step-1: Load input image
-I = imread('IMG_10.png');
-imshow(I);
+I = imread('IMG_01.png');
+
 
 % Step-2: Covert image to grayscale
 I = rgb2gray(I);
@@ -33,18 +33,22 @@ I_bin = imbinarize(I, G);
 I_area = bwareaopen(I_bin, 400, 4);
 
 %% Task 2: Edge detection ------------------------
-I = medfilt2(I, [12,12]);
-I = imadjust(I, [], [], 3);
-imshow(I);
+I_edge = medfilt2(I, [12,12]);
+I_edge = imadjust(I_edge, [], [], 3);
+%imshow(I);
 
-I = edge(I, 'canny');
+I_edge = edge(I_edge, 'canny');
 
 %imshow(I);
 
 %% Task 3: Simple segmentation --------------------
-mask = zeros(size(I));
-mask(25:end-25,25:end-25) = 1;
-I = activecontour(I, mask, 100);
-imshow(I);
+I_binA = imclearborder(I_bin); % get objects not attached to border
+I_binA = imfill(I_binA, "holes"); % fill in holes
+
+I_binB = I_bin - I_binA; % get only border-touching objects
+I_binB = bwconvhull(I_binB, "objects"); % and get their outline via bwconvhull()
+
+I_bin = I_binA + I_binB; % add 
+imshow(I_bin);
 
 % Task 4: Object Recognition --------------------
