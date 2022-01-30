@@ -57,7 +57,7 @@ I_noncircles = I_bin & ~I_circles;
 %imshow(I_noncircular);
 
 composite = cat(3, I_circles, I_noncircles, I_noncircles);
-%imshow(im2uint8(composite));
+imshow(im2uint8(composite));
 
 %% Ground Truth analysis
 gt = imread("IMG_11_GT.png");
