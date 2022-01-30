@@ -7,7 +7,7 @@ I = rgb2gray(Im);
 %I = adapthisteq(I);
 %I = imadjust(I, [], [], 0.16);
 
-I = medfilt2(I);
+I = medfilt2(I, [7,7]);
 
 T = graythresh(I);
 I = imbinarize(I, T);
@@ -23,17 +23,7 @@ I_B = I & ~I_A; % get only border-touching objects
 I_B = imopen(I_B, SE);
 I_B = bwconvhull(I_B, "objects"); % and get their outline via bwconvhull()
 
-I_C = I_A + I_B; % add border shapes to centre shapes
-
-I_bact = I - I_C;
-
-SE = strel("disk", 3);
-I_C = imerode(I_C, SE);
-
-I_C2 = imfill(I_bact, "holes");
-I_C2 = bwareaopen(I_C2, 150);
-
-I = I_C + I_C2;
+I = I_A + I_B; % add border shapes to centre shapes
 
 I_labelled = bwlabel(I); % label each region
 properties = regionprops(I_labelled, "Circularity"); % get circularity of regions
